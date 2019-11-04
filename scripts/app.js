@@ -1,5 +1,5 @@
-function spaceInvaderGame() {
 
+function spaceInvaderGame() {
   // ============================== setup game ==============================
 
   // setup grid - width, cells adding to arrays, adding players to positions (as a let outside the function)
@@ -8,48 +8,113 @@ function spaceInvaderGame() {
   const grid = document.querySelector('.grid')
   const cells = []
   let player = 389
-  let alien = 29
+  const aliens = [44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55,
+    64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75,
+    84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95]
+  const topRow = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
   const gridSize = width ** 2
   const playerBullet = []
   let alienBomb = []    // you need an empty array for anything that moves on the grid 
-  let alienMove = [] 
+  let direction = 1
   let lives = 0
-  let score = 0
-  let fireBulletId 
+  let score = 0 
+  let fireBulletId
   let bulletPosition
 
   for (let i = 0; i < width ** 2; i++) {
     const cell = document.createElement('div') // this is creating the square cells in the grid 
     grid.appendChild(cell)  // you need to append the cells as children to the grid so the div's are added to the grid array! 
     cells.push(cell)        // push the cell div into the cells array - this creates an index for each cell/div - this allows us to give our player a position as they have a number 
-    alienMove.push(cell)   // push the cell div into the empty alienMove array, so that when the aliens move, the cell id can appear in the alienMove array - basically assigning a position
     playerBullet.push(cell)
     alienBomb.push(cell)
   }
 
-  cells[player].classList.add('player')
-  alienMove[alien].classList.add('alien')
+  cells[player].classList.add('player') // player on canvas 
 
- 
-  // setup eventlistener for keys with function inside, which states what each key does (switch statement)
-
-  const bulletIntervals = []
-  function fireBullet() { 
-    bulletPosition = player																			// add function, remove bullet function, and then reset function 
-    fireBulletId = setInterval(() => {
-      playerBullet[bulletPosition].classList.remove('bullet')
-      bulletPosition = bulletPosition - width 
-      if (bulletPosition <= 0) {
-        clearInterval(fireBulletId) 
-      } else if (bulletPosition > -1) {
-        playerBullet[bulletPosition].classList.add('bullet')
-      }
-    }, 200)	
-    bulletIntervals.push(fireBulletId)	
-  }
+  aliens.forEach((e) => {
+    cells[e].classList.add('alien')    /// aliens on canvas
+  })
 	
-  // pushing interval of bullets firing into a empty array of lazer intervals allows multiple bullets - e.g. bulletIntervals.push[intervalId]
 
+  function removeAliens() {
+    aliens.forEach(alien => {
+      cells[alien].classList.remove('alien')
+    })
+  }
+
+  function moveAliensRight() {
+    for (var i = 0; i < aliens.length; i++) {
+      aliens[i] += 1
+      if (aliens[aliens.length - 1] % width === width - 1) {
+        console.log('hello')	
+        // clearInterval(intervalId)
+      }
+    }
+  }
+
+  function addAliens() {
+    aliens.forEach(alien => {
+      cells[alien].classList.add('alien')
+    })
+  }
+
+  function moveDown() {
+    for (var i = 0; i < aliens.length; i++) {
+      aliens[i] += width 
+    }
+  }
+
+  function downAndLeft() {
+    for (var i = 0; i < aliens.length; i++) {
+      aliens[i] -= 1
+    }
+  }
+
+
+  function test() {
+    removeAliens()
+    moveAliensRight()
+    // moveDown()
+    addAliens()
+  } 
+	
+  setInterval(test, 500) 
+
+  const bulletSuperArray = []
+  let bulletsFired = 0 
+  let newBullet = player - width
+	
+  function shotBullet() {		
+    const bulletArray = bulletSuperArray[bulletsFired]
+    const shotInterval = setInterval(() => {
+      cells[bulletArray[0]].classList.remove('bullet')
+      newBullet = bulletArray[0] - width 
+      cells[newBullet].classList.add('bullet')
+      bulletArray.pop()
+      bulletArray.push(newBullet)
+      // checks if bullet has hit an alien to remove both alien and bullet 
+      for (let i = 0; i < aliens.length; i++) {
+        if (bulletArray.includes(aliens[i])) {
+          console.log('hit')
+          clearInterval(shotInterval)
+          cells[newBullet].classList.remove('alien', 'bullet')
+          aliens.splice(i, 1) 
+          // add function to +score 
+        }
+      }
+		}, 50)
+		
+    setTimeout(() => {
+      clearInterval(shotInterval) 
+      setTimeout(() => {
+        topRow.forEach((i) => {
+          if (cells[i].className === 'bullet') {
+            cells[i].classList.remove('bullet')
+          }
+        })
+      }, 30)
+    }, 925)
+  }
 
   document.addEventListener('keyup', (e) => {
     switch (e.key) {
@@ -64,34 +129,24 @@ function spaceInvaderGame() {
       }
       case 'ArrowRight': {
         if (player === (gridSize - 1)) {
-          return 				
+          return
         }
-        cells[player].classList.remove('player')	
-        player = player + 1      
+        cells[player].classList.remove('player')
+        player = player + 1
         cells[player].classList.add('player')
         break
       }
       case ' ': {
-        fireBullet()   
-        console.log(playerBullet)	// need to set a time out for when it hits the top'! 
-	
-        break
+        bulletPosition = player - width
+        bulletSuperArray.push([bulletPosition])
+        shotBullet()
+        bulletsFired += 1
       }
+        break
     }
-  }) 
-	
-  window.addEventListener('load', () => {
-    setInterval(() => {
-      alienMove[alien].classList.remove('alien')
-      alien = alien + 1
-      alienMove[alien].classList.add('alien') 
-    }, 1000)
   })
 	
 
-
-
-  // set up player position - state initial position (with a let) and possible positions within the key cases  
 
   // setup alien position - use array square id for setting different values 
 
@@ -143,3 +198,13 @@ function spaceInvaderGame() {
 }
 
 window.addEventListener('DOMContentLoaded', spaceInvaderGame)
+
+
+// aliens to right: if (aliens.length - 1 === (gridSize - 1)) {
+//give interval id and then stop the interval 
+//create a function aliens[i] -= 1 
+// }
+
+// aliens to left: aliens[0] === 
+
+// function to move down -- setTimeOut (moveDown function) x - width 
