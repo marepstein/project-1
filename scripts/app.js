@@ -12,69 +12,114 @@ function spaceInvaderGame() {
     64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75,
     84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95]
   const topRow = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
-  const bottomRow = [379, 380, 381, 382, 383, 384, 385, 386, 387, 388, 389, 390, 391, 392, 393, 394, 395, 396, 397, 398, 399]
   const gridSize = width ** 2
   let direction = 1
-  let lives = 3
-  let score = 0
+  let playerLives = 3
+  let score = null
   let fireBulletId
   let bulletPosition
-  const startButton = document.querySelector('button')
-
+  const reset = document.querySelector('button')
+  const loser = document.querySelector('#lose')
+  const winner = document.querySelector('#win')
+  const intervals = [] 
+	
+  function startPage() {
+    document.querySelector('.grid').style.visibility = 'hidden'
+    reset.style.visibility = 'hidden'
+    winner.style.visibility = 'hidden'
+    loser.style.visibility = 'hidden'
+    document.querySelector('.livesClass').style.visibility = 'hidden'
+    document.querySelector('.scoresClass').style.visibility = 'hidden'
+    document.querySelector('.title').classList.remove('h1')
+    document.querySelector('.title').classList.add('startTitle')
+  }
+	
+  window.addEventListener('load', startPage)
+	
   for (let i = 0; i < width ** 2; i++) {
     const cell = document.createElement('div') // this is creating the square cells in the grid 
     grid.appendChild(cell)  // you need to append the cells as children to the grid so the div's are added to the grid array! 
     cells.push(cell)        // push the cell div into the cells array - this creates an index for each cell/div - this allows us to give our player a position as they have a number 
   }
+	
+  document.addEventListener('keyup', function(e) {
+    if (e.key === 's') {
+      document.querySelector('.grid').style.visibility = 'visible'
+      document.querySelector('#start').style.visibility = 'hidden'
+      playGame()
+    }
+  })
+
 
   function playGame() {
+    grid.style.position = 'absolute'
     cells[player].classList.add('player') // player on canvas 
     aliens.forEach((e) => {
       cells[e].classList.add('alien')    /// aliens on canvas
     })
-    moveAliens()
+    alienMove()
     randomBomb()
+    document.querySelector('.livesClass').style.visibility = 'visible'
+    document.querySelector('.scoresClass').style.visibility = 'visible'
+    const lives = document.querySelector('#lives')
+    lives.innerHTML = 3
+    const score = document.querySelector('#score')
+    document.querySelector('.title').style.visibility = 'hidden'
   }
-  startButton.addEventListener('click', playGame)
-
 
   function moveAliens() {
-    setInterval(() => {
-      aliens.forEach(alien => {
-        cells[alien].classList.remove('alien')
-      })
-      for (var i = 0; i < aliens.length; i++) {
-        aliens[i] += 1
-      }
-      aliens.forEach(alien => {
-        cells[alien].classList.add('alien')
-      })
-
-      const rightWall = aliens[aliens.length - 1] % width === width - 1
-      const leftWall = aliens[0] % width
-
-      // if (rightWall === true ) {
-      //   moveDown() 
-      // }
-    }, 500)
+    aliens.forEach(alien => {
+      cells[alien].classList.remove('alien')
+    })
+    for (var i = 0; i < aliens.length; i++) {
+      aliens[i] += 1
+    }
+    aliens.forEach(alien => {
+      cells[alien].classList.add('alien')
+    })
   }
 
   function moveDown() {
     aliens.forEach(alien => {
       cells[alien].classList.remove('alien')
     })
-    aliens = aliens.map(alien => alien += width)
+    // aliens = aliens.map(alien => alien += width)
+    for (var i = 0; i < aliens.length; i++) {
+      aliens[i] += 20
+    }
     aliens.forEach(alien => {
       cells[alien].classList.add('alien')
     })
-    aliens = aliens.map(alien => alien -= 1)
+    // aliens = aliens.map(alien => alien -= 1)
   }
 
-  // function downAndLeft() {
-  //   for (var i = 0; i < aliens.length; i++) {
-  //     aliens[i] -= 1
-  //   }
-  // }
+  function moveLeft() {
+    aliens.forEach(alien => {
+      cells[alien].classList.remove('alien')
+    })
+    for (var i = 0; i < aliens.length; i++) {
+      aliens[i] -= 1
+    }
+    aliens.forEach(alien => {
+      cells[alien].classList.add('alien')
+    })
+  }
+	
+  function alienMove() {
+    const alienMoveInterval = setInterval(() => {
+      setTimeout(() => {
+        moveAliens()
+      }, 1500)
+      setTimeout(() => {
+        moveDown() 
+      }, 2000)
+      setTimeout(() => {
+        moveLeft()
+      }, 2500)
+    }, 3000)
+    intervals.push(alienMoveInterval)
+  }
+
 
   const bulletSuperArray = []
   let bulletsFired = 0
@@ -100,15 +145,23 @@ function spaceInvaderGame() {
         if (bulletArray.includes(aliens[i])) {
           console.log('hit')
           clearInterval(shotInterval)
+          // cells[newBullet].classList.add('explosion')
           cells[newBullet].classList.remove('alien', 'bullet')
+          // setTimeout(() => {
+          //   cells[newBullet].classList.remove('explosion')
+          // }, 50)
           // start from alien position and remove one 
           aliens.splice(i, 1)
           // add function to +score 
-        }
+          score += 100
+          document.querySelector('#score').innerHTML = score 
+          if (aliens.length === 0) {
+            winGame()
+          }
+        } 
       }
     }, 50)
-
-
+    intervals.push(shotInterval)
     setTimeout(() => {
       clearInterval(shotInterval)
       setTimeout(() => {
@@ -119,15 +172,38 @@ function spaceInvaderGame() {
         })
       }, 30)
     }, 925)
+		
+  }
+
+  function loseLife() {
+    const lives = document.querySelector('#lives')
+    if (playerLives === 3) {
+      playerLives -= 1
+      lives.innerHTML = 2
+    } else if (playerLives === 2) {
+      playerLives -= 1 
+      lives.innerHTML = 1
+    } else  if (playerLives === 1) {
+      playerLives -= 1
+      lives.innerHTML = 0
+      loseGame() 
+    }
   }
 
   const bombSuperArray = []
   let bombsFired = 0
   let newBomb
 
+
   function dropBombs() {
     const bombArray = bombSuperArray[bombsFired]
     const bombInterval = setInterval(() => {
+      if (playerLives === 0) {
+        loseGame()
+      } else if (aliens.length === 0) {
+        clearInterval(bombInterval)
+        winGame()
+      } 
       cells[bombArray[0]].classList.remove('bomb')
       newBomb = bombArray[0] + width
       cells[newBomb].classList.add('bomb')
@@ -135,24 +211,29 @@ function spaceInvaderGame() {
       bombArray.push(newBomb)
       if (cells[bombArray].classList.contains('player')) {
         console.log('hello')
+        loseLife()
       } 
-      console.log(newBomb)
       if (newBomb >= 379) {
-        console.log(newBomb)
         clearInterval(bombInterval)
         setTimeout(() => {
           cells[bombArray].classList.remove('bomb')
         }, 60)
-      }
+      } 
     }, 100)
+    intervals.push(bombInterval)
   }
-	
+
   let randomBombs 
   function randomBomb() {
-    setInterval(() => {
+    const randomBombInterval = setInterval(() => {
       randomBombs = aliens[Math.floor(Math.random() * aliens.length)] 
       defineBombs()	
-    }, 500)
+    }, 1500)
+    intervals.push(randomBombInterval)
+    if (aliens.length === 0) {
+      clearInterval(randomBombInterval)
+      console.log('hello')
+    }
   }
 	
   function defineBombs() {
@@ -161,14 +242,7 @@ function spaceInvaderGame() {
     dropBombs()
     bombsFired += 1
   }
-	
-  // function loseLife() {
-  //   if (cells[player].classList.contains('bomb')) {
-  //     console.log('hello')
-  //   }
-  // }
 
-  // loseLife()
 
   document.addEventListener('keyup', (e) => {
     switch (e.key) {
@@ -205,6 +279,40 @@ function spaceInvaderGame() {
     }
 
   })
+	
+
+  function loseGame() {
+    document.querySelector('.grid').style.visibility = 'hidden'
+		loser.style.visibility = 'visible'
+		loser.style.color = 'rgb(255, 196, 0)'
+    document.querySelector('button').style.visibility = 'visible'
+    intervals.map(interval => clearInterval(interval))
+    console.log(intervals)
+    resetGame()
+  }
+
+  // function resetGame() {
+  //   reset.addEventListener('click', () =>{
+	// 		document.querySelector('.grid').style.visibility = 'visible'
+	// 		loser.style.visibility = 'hidden'
+  //     playerLives.innerHTML = 3
+  //     let aliens = [44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55,
+  //       64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75,
+  //       84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95]
+  //     playGame()
+  //   })
+	
+  // }
+	
+  function winGame() {
+    document.querySelector('.grid').style.visibility = 'hidden'
+    winner.style.visibility = 'visible'
+    document.querySelector('button').style.visibility = 'visible'
+    resetGame()
+  }
+	
+	
+ 
 
 
   // setup alien position - use array square id for setting different values 

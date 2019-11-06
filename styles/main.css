@@ -1,17 +1,21 @@
 * {
   box-sizing: border-box;
 }
+body, html {
+	height: 100%
+}
 
 body {
   align-items: center;
 	display: flex;
 	flex-direction: column; 
-  height: 100vh;
-  justify-content: center;
+	justify-content: center;
+	height: 100%;
 	margin: 0;
-	background-color: white;
-	font-family: monospace; 
-	background-image: url(../images/STARS.jpg);
+	font-family: 'Press Start 2P', cursive;
+	background-image: url(https://media.giphy.com/media/3o6ZthD1msBac55Mn6/giphy.gif);
+	background-repeat: no-repeat;
+	background-size: 100%;
 }
 
 .grid {
@@ -24,55 +28,52 @@ body {
   justify-content: center;
   max-height: 600px;
 	max-width: 600px;
-	/* background-color: black; */
-	background-image: url(../images/STARS.jpg);
+	background-color: black;
 }
 
 .grid div {
-  border: 1px solid greenyellow;
+  border: 1px solid black;
   flex-grow: 1;
   height: 5%;
 	width: 5%;
-
 }
 
 .grid div.player {
-  background-image: url(../images/spaceship.png);
-  background-size: 40px;
-  background-position-x: 0;
-	background-position-y: 0;
+	background-image: url(../images/spaceship\ \(1\).png);
+  background-size: 80%;
+	background-repeat: no-repeat;
 	background-position: center;
 }
 
 div.alien {
-	background-image: url(../images/ALIEN.png);
-  background-size: 28px;
-  background-position-x: 0;
-	background-position-y: 0;
+	background-image: url(../images/8bitalien.png);
+  background-size: 80%;
 	background-position: center;
+	background-repeat: no-repeat;
 
 }
 
 .bullet {
-	background-color: red; 
-	background-size: 10%;  
+	background-image: url(../images/laserbeam.png); 
+	background-size: 60%;  
 	background-position: center;
 }
 
 h1 {
-	color: greenyellow; 
+	color: rgb(255, 196, 0);
 	font-weight: 900;
 	text-transform: uppercase;
 	margin-bottom: 10px; 
+	margin-top: 300px;
 }
 
 button {
 	padding: 10px; 
 	margin: 10px 0 15px 0;
-	font-family: monospace; 
-	background-color: black; 
-	border: 2px solid greenyellow; 
+	font-family: 'Press Start 2P', cursive;
+	font-size: 15px; 
 	border-radius: 20%;
+	background-color: black;
 	color: white;
 }
 
@@ -89,11 +90,47 @@ header {
 	font-size: 40px; 
 }
 
+h3 {
+	margin-top: 200px; 
+	color: rgb(255, 196, 0);
+	font-size: 20px;
+}
+
 h2 {
 	color: white; 
+	font-size: 30px; 
 }
-
 
 .bomb {
-	background-color: indianred;
+	background-image: url(../images/RocketLaserBeam.png);
+	background-position: center;
+	background-size: 40%;
+	background-repeat: no-repeat;
 }
+
+.blinkMe {
+	animation: blinker 1.5s linear infinite;
+	font-size: 20px; 
+	text-transform: uppercase;
+}
+
+@keyframes blinker {
+  40% {
+    opacity: 0;
+  }
+}
+
+#lose {
+	display: flex; 
+	justify-content: center; 
+	color: red; 
+}
+
+#startTitle {
+	font-weight: 900;
+	text-transform: uppercase;
+	margin-bottom: 10px; 
+	color: greenyellow; 
+margin-top: 200px;
+}
+
