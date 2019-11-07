@@ -2,7 +2,7 @@
   box-sizing: border-box;
 }
 body, html {
-	height: 100%
+	height: 100%; 
 }
 
 body {
@@ -18,6 +18,22 @@ body {
 	background-size: 100%;
 }
 
+@media only screen and (max-width: 480px) {
+	body, html { 
+		height: 118vh;
+		background-size: cover;
+	}
+
+}
+
+@media only screen and (max-width: 768px) {
+	body, html { 
+		height: 118vh;
+		background-size: cover;
+	}
+
+}
+
 .grid {
   align-items: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
@@ -29,6 +45,28 @@ body {
   max-height: 600px;
 	max-width: 600px;
 	background-color: black;
+}
+
+.grid-shake {
+  /* Start the shake animation and make the animation last for 0.5 seconds */
+  animation: shake 0.5s;
+
+  /* When the animation is finished, start again */
+  animation-iteration-count: infinite;
+}
+
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
 
 .grid div {
@@ -72,9 +110,10 @@ button {
 	margin: 10px 0 15px 0;
 	font-family: 'Press Start 2P', cursive;
 	font-size: 15px; 
-	border-radius: 20%;
+	/* border-radius: 20%; */
 	background-color: black;
-	color: white;
+	color: rgb(255, 196, 0);
+	border: 1px solid rgb(255, 196, 0); 
 }
 
 header {
@@ -94,11 +133,26 @@ h3 {
 	margin-top: 200px; 
 	color: rgb(255, 196, 0);
 	font-size: 20px;
+	justify-content: space-between;
 }
 
-h2 {
-	color: white; 
-	font-size: 30px; 
+
+#lose {
+	color: rgb(125, 167, 144); 
+	font-size: 15px;
+	background-color: black; 
+	border: 1px solid black;
+}
+
+#start {
+	color: white;
+}
+
+#win {
+	color: rgb(125, 167, 144); 
+	font-size: 15px;
+	background-color: black; 
+	border: 1px solid black;
 }
 
 .bomb {
@@ -120,17 +174,5 @@ h2 {
   }
 }
 
-#lose {
-	display: flex; 
-	justify-content: center; 
-	color: red; 
-}
 
-#startTitle {
-	font-weight: 900;
-	text-transform: uppercase;
-	margin-bottom: 10px; 
-	color: greenyellow; 
-margin-top: 200px;
-}
 
