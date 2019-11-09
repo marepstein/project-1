@@ -47,7 +47,7 @@ function spaceInvaderGame() {
   }
 	
   document.addEventListener('keyup', function(e) {
-    if (e.key === 's') {
+		if (e.key === 's') {
       document.querySelector('.grid').style.visibility = 'visible'
       document.querySelector('#start').style.visibility = 'hidden'
       playGame()
@@ -170,7 +170,7 @@ function spaceInvaderGame() {
   }
 
   function loseLife() {
-    const lives = document.querySelector('#lives')
+		const lives = document.querySelector('#lives')
     if (playerLives === 3) {
       playerLives -= 1
       lives.innerHTML = 2
@@ -203,7 +203,6 @@ function spaceInvaderGame() {
       bombArray.pop()
       bombArray.push(newBomb)
       if (cells[bombArray].classList.contains('player')) {
-        console.log('hello')
 			  grid.animate([
           // keyframes
           { transform: 'translate3d(-3px, 0, 0)' }, 
@@ -220,8 +219,8 @@ function spaceInvaderGame() {
           duration: 0.5,
           iterations: 1000
         })
-        explosion.play()
-        loseLife()
+				explosion.play()
+				loseLife()
       } 
       if (newBomb >= 379) {
         clearInterval(bombInterval)
@@ -315,12 +314,3 @@ function spaceInvaderGame() {
 
 window.addEventListener('DOMContentLoaded', spaceInvaderGame)
 
-
-// aliens to right: if (aliens.length - 1 === (gridSize - 1)) {
-//give interval id and then stop the interval 
-//create a function aliens[i] -= 1 
-// }
-
-// aliens to left: aliens[0] === 
-
-// function to move down -- setTimeOut (moveDown function) x - width 
