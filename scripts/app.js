@@ -61,8 +61,7 @@ function spaceInvaderGame() {
       cells[e].classList.add('alien')    /// aliens on canvas
     })
     alienMove()
-		randomBomb()
-		document.querySelector('.grid').style.visibility = 'visible'
+    randomBomb()
     document.querySelector('.livesClass').style.visibility = 'visible'
     document.querySelector('.scoresClass').style.visibility = 'visible'
     const lives = document.querySelector('#lives')
