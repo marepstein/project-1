@@ -26,8 +26,8 @@ function spaceInvaderGame() {
   shooting.src = 'sounds/3538.wav'
   shooting.volume = 0.1
   const explosion = new Audio()
-	explosion.src = 'sounds/explode5.wav'
-	explosion.volume = 0.1
+  explosion.src = 'sounds/explode5.wav'
+  explosion.volume = 0.1
 	
   function startPage() {
     document.querySelector('.grid').style.visibility = 'hidden'
@@ -36,7 +36,7 @@ function spaceInvaderGame() {
     loser.style.visibility = 'hidden'
     document.querySelector('.livesClass').style.visibility = 'hidden'
     document.querySelector('.scoresClass').style.visibility = 'hidden'
-	}
+  }
 	
   window.addEventListener('load', startPage)
 	
@@ -47,7 +47,7 @@ function spaceInvaderGame() {
   }
 	
   document.addEventListener('keyup', function(e) {
-		if (e.key === 's') {
+    if (e.key === 's') {
       document.querySelector('.grid').style.visibility = 'visible'
       document.querySelector('#start').style.visibility = 'hidden'
       playGame()
@@ -130,7 +130,7 @@ function spaceInvaderGame() {
 
   const bulletSuperArray = []
   let bulletsFired = 0
-	let newBullet = player - width
+  let newBullet = player - width
 	
   function shotBullet() {
     const bulletArray = bulletSuperArray[bulletsFired]
@@ -170,7 +170,7 @@ function spaceInvaderGame() {
   }
 
   function loseLife() {
-		const lives = document.querySelector('#lives')
+    const lives = document.querySelector('#lives')
     if (playerLives === 3) {
       playerLives -= 1
       lives.innerHTML = 2
@@ -219,8 +219,8 @@ function spaceInvaderGame() {
           duration: 0.5,
           iterations: 1000
         })
-				explosion.play()
-				loseLife()
+        explosion.play()
+        loseLife()
       } 
       if (newBomb >= 379) {
         clearInterval(bombInterval)

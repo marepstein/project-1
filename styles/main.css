@@ -154,6 +154,7 @@ h3 {
 	background-color: black; 
 	border: 1px solid black;
 	margin-bottom: 20px; 
+	display: none;
 }
 
 .bomb {
