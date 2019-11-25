@@ -30,6 +30,7 @@ function spaceInvaderGame() {
   explosion.volume = 0.1
 	
   function startPage() {
+		document.body.style.visibility = 'visible'
     document.querySelector('.grid').style.visibility = 'hidden'
     reset.style.visibility = 'hidden'
     winner.style.visibility = 'hidden'
