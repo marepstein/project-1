@@ -34,7 +34,8 @@ function spaceInvaderGame() {
     document.querySelector('.grid').style.visibility = 'hidden'
     reset.style.visibility = 'hidden'
     winner.style.visibility = 'hidden'
-    loser.style.visibility = 'hidden'
+		loser.style.visibility = 'hidden'
+		document.querySelector('#start').style.visibility = 'visible'
     document.querySelector('.livesClass').style.visibility = 'hidden'
     document.querySelector('.scoresClass').style.visibility = 'hidden'
   }
