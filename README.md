@@ -3,6 +3,8 @@ Space Invaders is a classic arcade game, in which, the players aim is to shoot a
 
 The aim is for the player to kill all aliens before they reach the player position, without being struck by three of alien bombs, leaving the player with 0 lives.  
 
+![IMAGE of desktop 'SPACE INVADERS'](https://media.giphy.com/media/L1PwQfiDrKfstsSgqR/giphy.gif)
+
 <h2> Brief </h2>
 
 * Render a version of Space Invaders where the player is able to **clear at least one wave of aliens, with the score being displayed at the end of the game.**
@@ -22,6 +24,9 @@ The aim is for the player to kill all aliens before they reach the player positi
 * GitHub
 * Google Fonts
 
+<h2> Time frame </h2>
+
+7 days. 
 
 <h2> Approach taken </h2> 
 
@@ -29,9 +34,49 @@ The aim is for the player to kill all aliens before they reach the player positi
 
 The game itself is contained within a 20 x 20 grid made up of an array of 400 divs (cells). This created a starting point for the movement of my elements, which was straightforward as I was able to work out the necessary indicies based on whether movement was vertical (+/- width) or horizontal (+/- 1). 
 
-<h3> Creating and Moving Spaceship </h3>
+<h3> Creating and Moving Objects </h3>
 
-<h3> Creating and Moving Aliens </h3>
+I then created class names for 'alien', 'player', 'bullet' and 'bomb'. This allowed me to add CSS styling once I had defined each elements position. Alien positions were set out via an array of indicies, whilst the players initial position was a single index number. I decided to begin by focusing on the player movement as it required less logic. 
+
+Here, I used a keyup event listener, to allow the user to move the player using left and right arrows. I used a switch statement with nested if statements to restrict the player from moving above the bottom row, and off the screen.
+
+``` 
+
+  document.addEventListener('keyup', (e) => {
+    switch (e.key) {
+      case 'ArrowLeft': {
+        if (player === 380) {
+          return
+        }
+        cells[player].classList.remove('player')
+        player = player - 1
+        cells[player].classList.add('player')
+        break
+      }
+      case 'ArrowRight': {
+        if (player === (gridSize - 1)) {
+          return
+        }
+        cells[player].classList.remove('player')
+        player = player + 1
+        cells[player].classList.add('player')
+        break
+      }
+      case ' ': {
+        e.preventDefault()
+        bulletPosition = player - width
+        bulletSuperArray.push([bulletPosition])
+        shotBullet()
+        bulletsFired += 1
+        shooting.play()
+      }
+        break
+    }
+
+  })
+  
+  ```
+My next goal was to create the alien movement functionality, which consists of the aliens moving across and down the screen automatically. This was the most challenging element of the game. Eventually, after some experimenting, I was able to recreate this feature through the use of setIntervals and setTimeouts, calling on three different move functions, which I quickly realised I needed to define the new position of the aliens and remove each alien from their previous position. 
 		
 <h3> Game functionlity </h3> 
 
