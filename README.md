@@ -1,3 +1,11 @@
+<h1> Project One - Space Invaders </h1>
+
+<h3> Installation </h3>
+
+Clone or download the repo
+
+Open the index.html in your browser of choice
+
 <h2> Game Overview </h2>  
 
 Space Invaders is a classic arcade game, in which, the players aim is to shoot at an invading alien armada until there are no remaining aliens. The player can only move left or right. The aliens also move right, down and left at a set interval. The player also has to avoid the aliens bombs, which result in the reduction of a life. 
@@ -6,7 +14,7 @@ The aim is for the player to kill all aliens before they reach the player positi
 
    ![IMAGE of desktop 'SPACE INVADERS'](https://media.giphy.com/media/L1PwQfiDrKfstsSgqR/giphy.gif)
    
-   <a href="marepstein.github.io/project-1">Click to play!</a>
+   <a href="https://marepstein.github.io/project-1">Click to play!</a>
 
 <h2> Brief </h2>
 
