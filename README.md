@@ -1,9 +1,12 @@
 <h2> Game Overview </h2>  
+
 Space Invaders is a classic arcade game, in which, the players aim is to shoot at an invading alien armada until there are no remaining aliens. The player can only move left or right. The aliens also move right, down and left at a set interval. The player also has to avoid the aliens bombs, which result in the reduction of a life. 
 
 The aim is for the player to kill all aliens before they reach the player position, without being struck by three of alien bombs, leaving the player with 0 lives.  
 
-![IMAGE of desktop 'SPACE INVADERS'](https://media.giphy.com/media/L1PwQfiDrKfstsSgqR/giphy.gif)
+   ![IMAGE of desktop 'SPACE INVADERS'](https://media.giphy.com/media/L1PwQfiDrKfstsSgqR/giphy.gif)
+   
+   marepstein.github.io/project-1/
 
 <h2> Brief </h2>
 
