@@ -136,9 +136,9 @@ I found the bullet functionality challenging as the player had to be able to fir
 
 For alien bombs,the starting position was indicated using Math.random to pick a number within the array and fire from there. I used a similar logic to the bullets, again with array methods, setIntervals and if statements for scoring and lives. 
 
-<h4> Scoring and Lives </h4>:
+<h4> Scoring and Lives: </h4>
 
-For both the bullet hitting an alien and the bomb hitting a player, I nested an if statement within each function, for aliens this if statement was within a loop due to there being multiple aliens. The condition checked whether any cell contained either the player class or the alien class and then removes a life or adds to the user score - as a result of a call to the relevant function. 
+For both the bullet hitting an alien and the bomb hitting a player, I nested an if statement within each function, for aliens this was within a loop due to there being multiple aliens. The condition checked whether any cell contained either the player class or the alien class and then removes a life or adds to the user score - as a result of a call to the relevant function. 
 
 ```
 function dropBombs() {
