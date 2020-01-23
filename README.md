@@ -6,7 +6,7 @@ The aim is for the player to kill all aliens before they reach the player positi
 
    ![IMAGE of desktop 'SPACE INVADERS'](https://media.giphy.com/media/L1PwQfiDrKfstsSgqR/giphy.gif)
    
-   marepstein.github.io/project-1/
+   <a href="marepstein.github.io/project-1">marepstein.github.io/project-1/</a>
 
 <h2> Brief </h2>
 
